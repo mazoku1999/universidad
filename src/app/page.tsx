@@ -18,43 +18,43 @@ const videos: VideoData[] = [
     id: 1,
     question: "What academic programs and degrees does the institution offer?",
     answer: "SWAU offers a variety of undergraduate and graduate programs across multiple disciplines, including liberal arts, sciences, education, and psychology. For a comprehensive list of programs and degrees, please refer to the university's academic catalog.",
-    videoUrl: "/videos/1.mp4"
+    videoUrl: "https://res.cloudinary.com/djfiaa34u/video/upload/v1739932976/1_ggekoh.mp4"
   },
   {
     id: 2,
     question: "What are the admission requirements?",
     answer: "Admission requirements vary depending on the applicant's background: Freshman Applicants: Typically need to submit high school transcripts and standardized test scores. Transfer Applicants: A minimum GPA of 2.0 is required. Applicants with fewer than 24 credits should also provide high school transcripts. RN to BS Nursing Applicants: Must have completed an associate degree or diploma program from an accredited institution and hold an active, unencumbered RN license. Provisional Applicants: Individuals over 25 who do not meet regular admission criteria may be considered on an individual basis. Placement scores in English and math are also required for both freshman and transfer students.",
-    videoUrl: "/videos/2.mp4"
+    videoUrl: "https://res.cloudinary.com/djfiaa34u/video/upload/v1739933006/2_d6eixj.mp4"
   },
   {
     id: 3,
     question: "Is there a financing plan available?",
     answer: "Yes, SWAU offers various financial aid options, including federal and state grants, loans, and scholarships. The Department of Student Financial Services can provide detailed information and assistance.",
-    videoUrl: "/videos/3.mp4"
+    videoUrl: "https://res.cloudinary.com/djfiaa34u/video/upload/v1739932986/3_mgpjr0.mp4"
   },
   {
     id: 4,
     question: "What are the important dates for the admission and registration process?",
     answer: "For international students, application deadlines are May 1 for the fall semester and October 1 for the spring semester. Students must be fully admitted by June 1 for the fall semester and November 1 for the spring semester to allow sufficient time for obtaining an I-20 and student visa.",
-    videoUrl: "/videos/4.mp4"
+    videoUrl: "https://res.cloudinary.com/djfiaa34u/video/upload/v1739932999/4_znvxta.mp4"
   },
   {
     id: 5,
     question: "Does the university offer scholarships or financial aid? If so, what are the application requirements?",
     answer: "SWAU provides over 140 internal scholarships to undergraduate students, with 80% of undergraduates receiving scholarships. Application requirements vary by scholarship; it's recommended to contact the Student Financial Services office for specific details.",
-    videoUrl: "/videos/5.mp4"
+    videoUrl: "https://res.cloudinary.com/djfiaa34u/video/upload/v1739932986/5_nsahvb.mp4"
   },
   {
     id: 6,
     question: "What is the application process for international students?",
     answer: "International applicants should submit their applications by the specified deadlines and ensure they are fully admitted by the dates mentioned above. Detailed admission requirements for international students can be found in the university's academic catalog.",
-    videoUrl: "/videos/6.mp4"
+    videoUrl: "https://res.cloudinary.com/djfiaa34u/video/upload/v1739932988/6_tezq8o.mp4"
   },
   {
     id: 7,
     question: "How can parents stay informed about their child's progress and well-being at the university?",
     answer: "Specific mechanisms for parental involvement are not outlined in the provided sources. Typically, universities offer parent portals or communication channels. For detailed information, please contact SWAU's student affairs or academic services departments.",
-    videoUrl: "/videos/7.mp4"
+    videoUrl: "https://res.cloudinary.com/djfiaa34u/video/upload/v1739932994/7_jweozy.mp4"
   }
 ];
 

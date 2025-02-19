@@ -23,7 +23,7 @@ export const useVideo = () => {
 };
 
 export const VideoProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [currentSrc, setCurrentSrc] = useState('/videos/espera.mp4');
+    const [currentSrc, setCurrentSrc] = useState('https://res.cloudinary.com/djfiaa34u/video/upload/v1739933000/espera_n3saef.mp4');
     const [isPlaying, setIsPlaying] = useState(false);
     const [key, setKey] = useState(0);
 
@@ -41,7 +41,7 @@ export const VideoProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
     const resetVideo = useCallback(() => {
         console.log('🔄 Resetting video');
-        setCurrentSrc('/videos/espera.mp4');
+        setCurrentSrc('https://res.cloudinary.com/djfiaa34u/video/upload/v1739933000/espera_n3saef.mp4');
         setIsPlaying(false);
         setKey(prev => prev + 1);
     }, []);
@@ -49,7 +49,7 @@ export const VideoProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const value = {
         currentSrc,
         isPlaying,
-        isWaitingVideo: currentSrc.includes('espera.mp4'),
+        isWaitingVideo: currentSrc.includes('espera_n3saef.mp4'),
         key,
         setVideo,
         setPlaying,

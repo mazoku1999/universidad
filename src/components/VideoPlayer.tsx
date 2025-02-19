@@ -1,9 +1,10 @@
 'use client';
 
-import React, { Suspense, useRef, useEffect } from 'react';
+import React, { Suspense, useRef, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useVideo } from './VideoContext';
 import type ReactPlayer from 'react-player';
+import Image from 'next/image';
 
 // Importar ReactPlayer dinámicamente sin SSR
 const ReactPlayerComponent = dynamic(() => import('react-player/lazy'), {
@@ -14,9 +15,41 @@ interface VideoPlayerProps {
     className?: string;
 }
 
+const getThumbnailUrl = (videoUrl: string) => {
+    // Extraer el public_id y la versión del video URL
+    const matches = videoUrl.match(/\/v(\d+)\/([^.]+)/);
+    if (!matches) return '';
+
+    const [, version, public_id] = matches;
+
+    // Construir la URL del thumbnail con transformaciones
+    return `https://res.cloudinary.com/djfiaa34u/video/upload/c_fill,w_640,h_853,q_auto:low,e_blur:1000/${public_id}.jpg`;
+};
+
+const LoadingAnimation = ({ thumbnailUrl }: { thumbnailUrl: string }) => (
+    <div className="absolute inset-0 flex items-center justify-center">
+        <div className="absolute inset-0">
+            <Image
+                src={thumbnailUrl}
+                alt="Video thumbnail"
+                fill
+                className="object-cover"
+                priority
+            />
+            <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" />
+        </div>
+        <div className="relative flex flex-col items-center gap-4">
+            <div className="w-12 h-12 border-4 border-sky-400 border-t-transparent rounded-full animate-spin" />
+            <p className="text-sky-400 text-sm font-medium animate-pulse">Loading video...</p>
+        </div>
+    </div>
+);
+
 const VideoPlayer = ({ className }: VideoPlayerProps) => {
     const { currentSrc, isPlaying, isWaitingVideo, key, setPlaying, resetVideo } = useVideo();
     const playerRef = useRef<ReactPlayer>(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const thumbnailUrl = getThumbnailUrl(currentSrc);
 
     useEffect(() => {
         console.log('🎬 VideoPlayer mounted/updated:', {
@@ -24,6 +57,7 @@ const VideoPlayer = ({ className }: VideoPlayerProps) => {
             isWaitingVideo,
             isPlaying
         });
+        setIsLoading(true);
         if (playerRef.current) {
             playerRef.current.seekTo(0);
         }
@@ -47,19 +81,26 @@ const VideoPlayer = ({ className }: VideoPlayerProps) => {
 
     const handleReady = () => {
         console.log('✅ Video ready:', { currentSrc, isWaitingVideo });
+        setIsLoading(false);
     };
 
     const handleError = (error: Error) => {
         console.error('❌ Video error:', error);
+        setIsLoading(false);
+    };
+
+    const handleBuffer = () => {
+        setIsLoading(true);
+    };
+
+    const handleBufferEnd = () => {
+        setIsLoading(false);
     };
 
     return (
-        <div className={`w-full aspect-[3/4] bg-black ${className || ''}`}>
-            <Suspense fallback={
-                <div className="w-full h-full flex items-center justify-center">
-                    <div className="w-8 h-8 border-4 border-sky-400 border-t-transparent rounded-full animate-spin" />
-                </div>
-            }>
+        <div className={`relative w-full aspect-[3/4] bg-gradient-to-br from-slate-900 to-slate-800 overflow-hidden ${className || ''}`}>
+            {isLoading && <LoadingAnimation thumbnailUrl={thumbnailUrl} />}
+            <Suspense fallback={<LoadingAnimation thumbnailUrl={thumbnailUrl} />}>
                 <ReactPlayerComponent
                     key={key}
                     ref={playerRef}
@@ -74,6 +115,8 @@ const VideoPlayer = ({ className }: VideoPlayerProps) => {
                     onPause={handlePause}
                     onReady={handleReady}
                     onError={handleError}
+                    onBuffer={handleBuffer}
+                    onBufferEnd={handleBufferEnd}
                     playsinline
                     stopOnUnmount={true}
                     config={{
