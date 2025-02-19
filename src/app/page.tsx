@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { GraduationCap, Lightbulb, School } from 'lucide-react';
-import VideoButton, { getIconForQuestion } from '@/components/VideoButton';
+import { School } from 'lucide-react';
+import VideoButton from '@/components/VideoButton';
 import VideoPlayer from '@/components/VideoPlayer';
 import { VideoProvider, useVideo } from '@/components/VideoContext';
 
@@ -58,11 +58,9 @@ const videos: VideoData[] = [
   }
 ];
 
-const WAITING_VIDEO_URL = "/videos/espera.mp4";
-
 function HomeContent() {
   const [selectedVideo, setSelectedVideo] = useState<VideoData | null>(null);
-  const { setVideo, resetVideo } = useVideo();
+  const { setVideo } = useVideo();
 
   const handleQuestionClick = (video: VideoData) => {
     console.log('🎥 Question clicked:', video.id);

@@ -3,9 +3,10 @@
 import React, { Suspense, useRef, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { useVideo } from './VideoContext';
+import type ReactPlayer from 'react-player';
 
 // Importar ReactPlayer dinámicamente sin SSR
-const ReactPlayer = dynamic(() => import('react-player/lazy'), {
+const ReactPlayerComponent = dynamic(() => import('react-player/lazy'), {
     ssr: false,
 });
 
@@ -15,7 +16,7 @@ interface VideoPlayerProps {
 
 const VideoPlayer = ({ className }: VideoPlayerProps) => {
     const { currentSrc, isPlaying, isWaitingVideo, key, setPlaying, resetVideo } = useVideo();
-    const playerRef = useRef<any>(null);
+    const playerRef = useRef<ReactPlayer>(null);
 
     useEffect(() => {
         console.log('🎬 VideoPlayer mounted/updated:', {
@@ -26,7 +27,7 @@ const VideoPlayer = ({ className }: VideoPlayerProps) => {
         if (playerRef.current) {
             playerRef.current.seekTo(0);
         }
-    }, [currentSrc, isPlaying]);
+    }, [currentSrc, isPlaying, isWaitingVideo]);
 
     const handlePause = () => {
         console.log('⏸️ Video paused');
@@ -48,7 +49,7 @@ const VideoPlayer = ({ className }: VideoPlayerProps) => {
         console.log('✅ Video ready:', { currentSrc, isWaitingVideo });
     };
 
-    const handleError = (error: any) => {
+    const handleError = (error: Error) => {
         console.error('❌ Video error:', error);
     };
 
@@ -59,7 +60,7 @@ const VideoPlayer = ({ className }: VideoPlayerProps) => {
                     <div className="w-8 h-8 border-4 border-sky-400 border-t-transparent rounded-full animate-spin" />
                 </div>
             }>
-                <ReactPlayer
+                <ReactPlayerComponent
                     key={key}
                     ref={playerRef}
                     url={currentSrc}
