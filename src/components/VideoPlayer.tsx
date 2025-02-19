@@ -16,11 +16,11 @@ interface VideoPlayerProps {
 }
 
 const getThumbnailUrl = (videoUrl: string) => {
-    // Extraer el public_id y la versión del video URL
-    const matches = videoUrl.match(/\/v(\d+)\/([^.]+)/);
+    // Extraer el public_id del video URL
+    const matches = videoUrl.match(/\/v\d+\/([^.]+)/);
     if (!matches) return '';
 
-    const [, version, public_id] = matches;
+    const [, public_id] = matches;
 
     // Construir la URL del thumbnail con transformaciones
     return `https://res.cloudinary.com/djfiaa34u/video/upload/c_fill,w_640,h_853,q_auto:low,e_blur:1000/${public_id}.jpg`;
