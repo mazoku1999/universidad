@@ -5,6 +5,7 @@ import { School } from 'lucide-react';
 import VideoButton from '@/components/VideoButton';
 import VideoPlayer from '@/components/VideoPlayer';
 import { VideoProvider, useVideo } from '@/components/VideoContext';
+import Image from 'next/image';
 
 interface VideoData {
   id: number;
@@ -74,50 +75,57 @@ function HomeContent() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?w=1600')] opacity-[0.02] bg-cover bg-center mix-blend-overlay" />
+    <div className="min-h-screen bg-gradient-to-br from-red-950 via-red-900 to-red-950">
+      {/* Efectos de fondo modernos */}
+      <div className="absolute inset-0">
+        {/* Gradiente base con efecto de viñeta */}
+        <div className="absolute inset-0 bg-gradient-to-br from-red-950 via-red-900 to-red-950" />
+
+        {/* Efecto de luz superior */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-gradient-radial from-red-500/10 to-transparent" />
+
+        {/* Destellos sutiles */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_800px_at_100%_200px,rgba(220,38,38,0.05),transparent)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_800px_at_0%_800px,rgba(220,38,38,0.05),transparent)]" />
+
+        {/* Patrón de puntos muy sutil */}
+        <div className="absolute inset-0 opacity-5 bg-[radial-gradient(circle_2px_at_center,rgb(255,255,255),transparent)_0_0/20px_20px]" />
+      </div>
 
       <div className="relative flex flex-col min-h-screen">
-        {/* Header */}
-        <header className="sticky top-0 z-50 bg-slate-900/95 backdrop-blur-lg pt-4 pb-6 px-4 border-b border-slate-700/50">
+        {/* Header más minimalista */}
+        <header className="sticky top-0 z-50 bg-gradient-to-b from-red-950 to-red-950/80 pt-6 pb-4 px-4 border-b border-white/[0.02] shadow-xl shadow-red-950/50">
           <div className="container mx-auto">
             {/* Mobile Header */}
-            <div className="lg:hidden flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-gradient-to-br from-sky-500/10 to-violet-500/10 border border-sky-400/20">
-                <School className="w-6 h-6 text-sky-400" />
-              </div>
-              <h1 className="text-2xl font-bold text-white">
-                Interactive <span className="bg-gradient-to-r from-sky-400 to-violet-400 bg-clip-text text-transparent">Questions</span>
-              </h1>
+            <div className="lg:hidden flex items-center justify-center">
+              <a href="/" className="text-white transform hover:scale-105 transition-transform duration-300">
+                <Image src="/logo.svg" alt="SWAU Logo" width={160} height={45} className="h-10 w-auto brightness-0 invert opacity-90 hover:opacity-100 transition-opacity" />
+              </a>
             </div>
 
             {/* Desktop Header */}
-            <div className="hidden lg:flex items-center justify-center gap-4">
-              <div className="p-3 rounded-xl bg-gradient-to-br from-sky-500/10 to-violet-500/10 border border-sky-400/20">
-                <School className="w-12 h-12 text-sky-400" />
-              </div>
-              <h1 className="text-4xl md:text-6xl font-bold text-white">
-                Interactive<br />
-                <span className="bg-gradient-to-r from-sky-400 to-violet-400 bg-clip-text text-transparent">Questions</span>
-              </h1>
+            <div className="hidden lg:flex items-center justify-center">
+              <a href="/" className="text-white transform hover:scale-105 transition-transform duration-300">
+                <Image src="/logo.svg" alt="SWAU Logo" width={200} height={56} className="h-14 w-auto brightness-0 invert opacity-90 hover:opacity-100 transition-opacity" />
+              </a>
             </div>
           </div>
         </header>
 
-        {/* Main Content */}
-        <main className="flex-1 container mx-auto px-4 py-8">
-          <div className="flex flex-col lg:flex-row gap-8 max-w-7xl mx-auto">
-            {/* Video Section - Always on top in mobile */}
+        {/* Main Content con más espacio y mejor organización */}
+        <main className="flex-1 container mx-auto px-6 py-12">
+          <div className="flex flex-col lg:flex-row gap-12 max-w-6xl mx-auto">
+            {/* Video Section con sombras más sutiles */}
             <div className="order-1 lg:order-2 lg:w-1/2 lg:sticky lg:top-[calc(2rem+100px)] lg:self-start">
               <div className="w-full max-w-sm mx-auto lg:max-w-md">
-                <div className="rounded-xl overflow-hidden bg-black/40 border border-slate-700/50 shadow-[0_0_25px_rgba(56,189,248,0.15)]">
+                <div className="rounded-2xl overflow-hidden bg-gradient-to-br from-black/30 to-black/20 backdrop-blur-sm border border-white/[0.03] shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
                   <VideoPlayer />
                 </div>
               </div>
             </div>
 
-            {/* Questions List */}
-            <div className="order-2 lg:order-1 lg:w-1/2 space-y-3">
+            {/* Questions List con más espacio entre elementos */}
+            <div className="order-2 lg:order-1 lg:w-1/2 space-y-4">
               {videos.map((video) => (
                 <VideoButton
                   key={video.id}

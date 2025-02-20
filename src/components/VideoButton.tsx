@@ -25,23 +25,24 @@ interface VideoButtonProps {
 }
 
 export const getIconForQuestion = (id: number) => {
+    const commonClasses = "w-4 h-4";
     switch (id) {
         case 1:
-            return <School className="w-5 h-5 text-sky-400" />;
+            return <School className={commonClasses} />;
         case 2:
-            return <GraduationCap className="w-5 h-5 text-emerald-400" />;
+            return <GraduationCap className={commonClasses} />;
         case 3:
-            return <DollarSign className="w-5 h-5 text-yellow-400" />;
+            return <DollarSign className={commonClasses} />;
         case 4:
-            return <Calendar className="w-5 h-5 text-rose-400" />;
+            return <Calendar className={commonClasses} />;
         case 5:
-            return <Heart className="w-5 h-5 text-pink-400" />;
+            return <Heart className={commonClasses} />;
         case 6:
-            return <Plane className="w-5 h-5 text-violet-400" />;
+            return <Plane className={commonClasses} />;
         case 7:
-            return <Users className="w-5 h-5 text-teal-400" />;
+            return <Users className={commonClasses} />;
         default:
-            return <School className="w-5 h-5 text-sky-400" />;
+            return <School className={commonClasses} />;
     }
 };
 
@@ -49,27 +50,33 @@ const VideoButton = ({ video, onClick, isActive }: VideoButtonProps) => {
     return (
         <button
             onClick={onClick}
-            className={`group relative w-full py-4 px-5 ${isActive
-                ? 'bg-gradient-to-r from-sky-500/20 to-violet-500/20 border-sky-400/50 shadow-[0_0_15px_rgba(56,189,248,0.15)]'
-                : 'bg-slate-800/50 hover:bg-gradient-to-r hover:from-sky-500/10 hover:to-violet-500/10 border-slate-700/50 hover:border-sky-400/30 hover:shadow-[0_0_15px_rgba(56,189,248,0.1)]'
-                } backdrop-blur-md border rounded-xl transition-all duration-300 active:scale-[0.98] touch-manipulation overflow-hidden`}
+            className={`group relative w-full p-4 ${isActive
+                ? 'bg-red-800 border-red-700'
+                : 'bg-black/40 hover:bg-red-900 border-transparent'
+                } border transition-all duration-300 rounded-lg flex items-center gap-4`}
         >
-            <div className="absolute inset-0 bg-gradient-to-r from-sky-500/0 to-violet-500/0 group-hover:from-sky-500/5 group-hover:to-violet-500/5 transition-opacity duration-300" />
+            {/* Línea indicadora lateral */}
+            <div className={`absolute left-0 top-1/2 -translate-y-1/2 w-[2px] h-[calc(100%-24px)] rounded-full transition-all duration-300 ${isActive ? 'bg-red-400' : 'bg-transparent group-hover:bg-red-500'
+                }`} />
 
-            <div className="relative z-10 flex gap-4">
-                <div className="flex-shrink-0 p-2.5 rounded-lg bg-white/5 group-hover:bg-white/10 transition-colors duration-300">
-                    {getIconForQuestion(video.id)}
-                </div>
+            {/* Icono */}
+            <div className={`flex-shrink-0 transition-all duration-300 ${isActive ? 'text-red-300' : 'text-red-400/70 group-hover:text-red-300'
+                }`}>
+                {getIconForQuestion(video.id)}
+            </div>
 
-                <div className="flex-1 min-w-0 flex items-center justify-between gap-4">
-                    <h3 className="text-[15px] leading-normal font-medium text-white text-left pr-2">
-                        {video.question}
-                    </h3>
-                    <div className="flex-shrink-0">
-                        <ChevronRight className={`w-5 h-5 ${isActive ? 'text-sky-400' : 'text-slate-400'
-                            } transition-colors duration-300`} />
-                    </div>
-                </div>
+            {/* Texto */}
+            <div className="flex-1 min-w-0">
+                <h3 className={`text-[15px] leading-relaxed transition-all duration-300 text-left ${isActive ? 'text-white font-medium' : 'text-gray-100 group-hover:text-white'
+                    }`}>
+                    {video.question}
+                </h3>
+            </div>
+
+            {/* Flecha */}
+            <div className={`flex-shrink-0 transition-transform duration-300 ${isActive ? 'translate-x-0 opacity-100' : '-translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100'
+                }`}>
+                <ChevronRight className="w-4 h-4 text-red-300" />
             </div>
         </button>
     );
