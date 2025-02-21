@@ -45,6 +45,11 @@ const LoadingAnimation = ({ thumbnailUrl }: { thumbnailUrl: string }) => (
     </div>
 );
 
+interface PlayError extends Error {
+    name: string;
+    message: string;
+}
+
 const VideoPlayer = ({ className }: VideoPlayerProps) => {
     const { currentSrc, isPlaying, isWaitingVideo, key, setPlaying, resetVideo } = useVideo();
     const playerRef = useRef<ReactPlayer>(null);
@@ -79,7 +84,7 @@ const VideoPlayer = ({ className }: VideoPlayerProps) => {
         }
     };
 
-    const handleError = (error: any) => {
+    const handleError = (error: Error) => {
         console.error('❌ Video error:', error);
         // Si es un AbortError por ahorro de energía, no lo tratamos como un error crítico
         if (error?.name === 'AbortError') {
@@ -103,7 +108,7 @@ const VideoPlayer = ({ className }: VideoPlayerProps) => {
         // Intentar reproducir el video con manejo de errores
         if (playerRef.current?.getInternalPlayer()) {
             const videoElement = playerRef.current.getInternalPlayer();
-            videoElement.play().catch((error: any) => {
+            videoElement.play().catch((error: PlayError) => {
                 if (error.name === 'AbortError') {
                     console.log('ℹ️ Auto-play was prevented to save power');
                     // No tratamos esto como un error, el usuario puede hacer click para reproducir

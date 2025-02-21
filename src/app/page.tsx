@@ -1,11 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { School } from 'lucide-react';
 import VideoButton from '@/components/VideoButton';
 import VideoPlayer from '@/components/VideoPlayer';
 import { VideoProvider, useVideo } from '@/components/VideoContext';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface VideoData {
   id: number;
@@ -190,16 +190,16 @@ function HomeContent() {
           <div className="container mx-auto">
             {/* Mobile Header */}
             <div className="lg:hidden flex items-center justify-center">
-              <a href="/" className="text-white">
+              <Link href="/" className="text-white">
                 <Image src="/logo.svg" alt="SWAU Logo" width={180} height={51} className="h-12 w-auto brightness-0 invert" />
-              </a>
+              </Link>
             </div>
 
             {/* Desktop Header */}
             <div className="hidden lg:flex items-center justify-center">
-              <a href="/" className="text-white">
+              <Link href="/" className="text-white">
                 <Image src="/logo.svg" alt="SWAU Logo" width={240} height={68} className="h-16 w-auto brightness-0 invert" />
-              </a>
+              </Link>
             </div>
           </div>
         </header>
