@@ -79,13 +79,13 @@ const VideoPlayer = ({ className }: VideoPlayerProps) => {
         }
     };
 
-    const handleReady = () => {
-        console.log('✅ Video ready:', { currentSrc, isWaitingVideo });
-        setIsLoading(false);
-    };
-
-    const handleError = (error: Error) => {
+    const handleError = (error: any) => {
         console.error('❌ Video error:', error);
+        // Si es un AbortError por ahorro de energía, no lo tratamos como un error crítico
+        if (error?.name === 'AbortError') {
+            console.log('ℹ️ Video playback was interrupted to save power');
+            return;
+        }
         setIsLoading(false);
     };
 
@@ -95,6 +95,23 @@ const VideoPlayer = ({ className }: VideoPlayerProps) => {
 
     const handleBufferEnd = () => {
         setIsLoading(false);
+    };
+
+    const handleReady = () => {
+        console.log('✅ Video ready:', { currentSrc, isWaitingVideo });
+        setIsLoading(false);
+        // Intentar reproducir el video con manejo de errores
+        if (playerRef.current?.getInternalPlayer()) {
+            const videoElement = playerRef.current.getInternalPlayer();
+            videoElement.play().catch((error: any) => {
+                if (error.name === 'AbortError') {
+                    console.log('ℹ️ Auto-play was prevented to save power');
+                    // No tratamos esto como un error, el usuario puede hacer click para reproducir
+                    return;
+                }
+                console.error('❌ Auto-play failed:', error);
+            });
+        }
     };
 
     return (
